@@ -75,6 +75,8 @@
     <Compile Include="JsonData\JsonDataPrac.cs" />
     <Compile Include="ImportDataParams.cs" />
     <Compile Include="JsonDataParams.cs" />
+    <Compile Include="JsonData\JsonDataUPom.cs" />
+    <Compile Include="ImportData\ImportDataUPom.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -86,6 +88,7 @@
     <None Include="TestJsonData\TestScenarSestR.json" />
     <None Include="TestJsonData\TestScenarStart.json" />
     <None Include="TestJsonData\TestScenarVyuct.json" />
+    <None Include="TestJsonData\TestScenarUPPom.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ImportData\" />

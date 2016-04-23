@@ -6,6 +6,7 @@ namespace TestImportBatch
 	public class ImportDataParams
 	{
 		public IList<ImportDataPrac> PPrac {get; private set;}
+		public IList<ImportDataUPom> UPPom {get; private set;}
 		public IList<ImportDataDite> DDeti {get; private set;}
 		public IList<ImportDataVyuc> Vyuct {get; private set;}
 		public IList<ImportDataSest> SestR {get; private set;}
@@ -14,6 +15,7 @@ namespace TestImportBatch
 		public ImportDataParams ()
 		{
 			PPrac = null;
+			UPPom = null;
 			DDeti = null;
 			Vyuct = null;
 			SestR = null;

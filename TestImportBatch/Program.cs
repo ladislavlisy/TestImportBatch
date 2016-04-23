@@ -52,6 +52,8 @@ namespace TestImportBatch
 					{
 						var importListMesRokPPrac = data.PPrac.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu)).ToList();
 
+						var importListMesRokUPPom = data.UPPom.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu)).ToList();
+
 						var importListMesRokDDeti = data.DDeti.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu)).ToList();
 
 						var importListMesRokMMzda = data.MMzda.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu && c.RokMesicZadani == vyuct.RokMesicZaznamu)).ToList();
@@ -85,6 +87,11 @@ namespace TestImportBatch
 									pprac.CreateImportRecord08(writer);
 									pprac.CreateImportRecord17(writer);
 									pprac.CreateImportRecord18(writer);
+								}
+								foreach (var uppom in importListMesRokUPPom)
+								{
+									uppom.CreateImportRecord17(writer);
+									uppom.CreateImportRecord18(writer);
 								}
 								foreach (var ddeti in importListMesRokDDeti)
 								{

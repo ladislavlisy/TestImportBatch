@@ -11,6 +11,7 @@ namespace TestImportBatch
 		public string RokMesUpto {get; private set;}
 
 		public IList<JsonDataPrac> PPrac {get; private set;}
+		public IList<JsonDataUPom> UPPom {get; private set;}
 		public IList<JsonDataDite> DDeti {get; private set;}
 		public IList<JsonDataVyuc> Vyuct {get; private set;}
 		public IList<JsonDataSest> SestR {get; private set;}
@@ -22,6 +23,7 @@ namespace TestImportBatch
 			this.RokMesUpto = "1512";
 
 			this.PPrac = null;
+			this.UPPom = null;
 			this.DDeti = null;
 			this.Vyuct = null;
 			this.SestR = null;
@@ -44,6 +46,9 @@ namespace TestImportBatch
 
 			string fileNameImportStart = "TestScenarStart.json";
 			PPrac = ImportUtils.ReadJsonData<JsonDataPrac>(appExecutableFolder, fileNameImportStart);
+
+			string fileNameImportUPPom = "TestScenarUPPom.json";
+			UPPom = ImportUtils.ReadJsonData<JsonDataUPom>(appExecutableFolder, fileNameImportUPPom);
 
 			string fileNameImportDDeti = "TestScenarDDeti.json";
 			DDeti = ImportUtils.ReadJsonData<JsonDataDite>(appExecutableFolder, fileNameImportDDeti);
