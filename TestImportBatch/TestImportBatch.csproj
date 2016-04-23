@@ -79,9 +79,17 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestJsonData\TestScenarMSraz.json" />
+    <None Include="TestJsonData\TestScenarMNepr.json" />
+    <None Include="TestJsonData\TestScenarMMzda.json" />
+    <None Include="TestJsonData\TestScenarDDeti.json" />
+    <None Include="TestJsonData\TestScenarSestR.json" />
+    <None Include="TestJsonData\TestScenarStart.json" />
+    <None Include="TestJsonData\TestScenarVyuct.json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ImportData\" />
     <Folder Include="JsonData\" />
+    <Folder Include="TestJsonData\" />
   </ItemGroup>
 </Project>

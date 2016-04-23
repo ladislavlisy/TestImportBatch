@@ -12,14 +12,16 @@ namespace TestImportBatch
 		{
 			RunParams testFolders = new RunParams();
 
-			testFolders.SetDirectoryVariables (args);
+			string[] testArgs = Environment.GetCommandLineArgs();
+
+			testFolders.SetDirectoryVariables (testArgs);
 
 			JsonDataParams testData = new JsonDataParams ();
 
 			string sRokMesFrom = "1501";
 			string sRokMesUpto = "1512";
 
-			testData.PrepareImportProccess (args, sRokMesFrom, sRokMesUpto);
+			testData.PrepareImportProccess (testArgs, sRokMesFrom, sRokMesUpto);
 
 			CreateImportFileXJSON (testData, testFolders.OldTestFolders.PathImportTxtFolder, "XX", RunParams.MS_SQL_ARCHIVACE_RUN);
 
