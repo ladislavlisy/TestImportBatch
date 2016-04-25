@@ -16,6 +16,7 @@ namespace TestImportBatch
 		public IList<JsonDataVyuc> Vyuct {get; private set;}
 		public IList<JsonDataSest> SestR {get; private set;}
 		public IList<JsonDataMzda> MMzda {get; private set;}
+		public IList<JsonDataNepr> MNepr {get; private set;}
 
 		public JsonDataParams ()
 		{
@@ -28,6 +29,7 @@ namespace TestImportBatch
 			this.Vyuct = null;
 			this.SestR = null;
 			this.MMzda = null;
+			this.MNepr = null;
 
 		}
 		private string ExecutableAppFolder(string[] args)
@@ -55,6 +57,9 @@ namespace TestImportBatch
 
 			string fileNameImportMMzda = "TestScenarMMzda.json";
 			MMzda = ImportUtils.ReadJsonData<JsonDataMzda>(appExecutableFolder, fileNameImportMMzda);
+
+			string fileNameImportMNepr = "TestScenarMNepr.json";
+			MNepr = ImportUtils.ReadJsonData<JsonDataNepr>(appExecutableFolder, fileNameImportMNepr);
 
 			string fileNameImportVyuct = "TestScenarVyuct.json";
 			Vyuct = ImportUtils.ReadJsonData<JsonDataVyuc>(appExecutableFolder, fileNameImportVyuct);

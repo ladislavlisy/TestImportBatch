@@ -110,6 +110,29 @@ namespace TestImportBatch
 		{
 			return PathTestsDataFolder + "\\okmzdyw.mdw";
 		}
-	}
+
+        private static void CreateDirectory(string targetPath)
+        {
+            if (!System.IO.Directory.Exists(targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+            }
+        }
+
+        public void CreateTestDirTree()
+        {
+            CreateDirectory(PathTestsNodeFolder);
+
+            CreateDirectory(PathTestsExecFolder);
+            CreateDirectory(PathTestsDataFolder);
+            CreateDirectory(PathArchsDataFolder);
+            CreateDirectory(PathTiskyDataFolder);
+            CreateDirectory(PathEmptyDataFolder);
+            CreateDirectory(PathImportTxtFolder);
+            CreateDirectory(PathResultTxtFolder);
+        }
+
+
+    }
 }
 

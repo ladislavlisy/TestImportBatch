@@ -1,11 +1,11 @@
 ﻿[
     {
-        "RokMesicZaznamu": "1501",
+        "RokMesicZaznamu": "1504",
         "OsobniCislo": "00001-POM",
         "PPomerCislo": "02-DPC",
         "PomerZacatek": "16.4.2015",
         "PomerKonec": "30.6.2015",
-        "CinnostSSZ": "10",
+        "CinnostSSZ": "11",
         "CinnostDanit": "1",
         "CinnostSocPojist": "1",
         "CinnostZdrPojist": "1",
@@ -28,7 +28,7 @@
         "SkutecnyUvazekHodin": "40"
     },
     {
-        "RokMesicZaznamu": "1501",
+        "RokMesicZaznamu": "1506",
         "OsobniCislo": "00001-POM",
         "PPomerCislo": "01-POM",
         "PomerZacatek": "29.6.2015",
@@ -41,7 +41,7 @@
         "PraxeRoky": "23",
         "PraxeDny": "256",
         "PlatovaTrida": "T 12",
-        "PlatovyStupen": "16",
+        "PlatovyStupen": "12",
         "FunkcePopis": "POM",
         "DovolenaBeznaNarok": "25",
         "DovolenaDodatNarok": "0",

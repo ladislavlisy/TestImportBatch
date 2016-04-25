@@ -53,7 +53,13 @@ namespace TestImportBatch
 			NewTestFolders.NastavTestsFolders(AppExecutableFolder);
 		}
 
-		public void CreateKonfigFileAccess()
+        public void CreateTestDirTree()
+        {
+            OldTestFolders.CreateTestDirTree();
+            NewTestFolders.CreateTestDirTree();
+        }
+
+        public void CreateKonfigFileAccess()
 		{
 			using (TextWriter writer = File.CreateText(PathTestsKonfigFXML))
 			{

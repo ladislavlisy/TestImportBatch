@@ -16,6 +16,8 @@ namespace TestImportBatch
 
 			testFolders.SetDirectoryVariables (testArgs);
 
+            testFolders.CreateTestDirTree();
+
 			JsonDataParams testData = new JsonDataParams ();
 
 			string sRokMesFrom = "1501";
@@ -23,21 +25,38 @@ namespace TestImportBatch
 
 			testData.PrepareImportProccess (testArgs, sRokMesFrom, sRokMesUpto);
 
-			CreateImportFileXJSON (testData, testFolders.OldTestFolders.PathImportTxtFolder, "XX", RunParams.MS_SQL_ARCHIVACE_RUN);
+			CreateImportFileXJSON (testData, testFolders.OldTestFolders, "XX", RunParams.MS_SQL_ARCHIVACE_RUN);
+
 
 			Console.WriteLine ("Completed!");
 		}
 
-		private static string CreateImportFileXJSON(JsonDataParams data, string pathImportTxtFolder, string fileImportPref, int archivaceRun)
+		private static string CreateImportFileXJSON(JsonDataParams data, TestInitParams folders, string fileImportPref, int archivaceRun)
 		{
 			const long PRE_IMPORT_ARCHIVACE = 0;
 
 			string sRokMesFrom = data.RokMesFrom;
 			string sRokMesUpto = data.RokMesUpto;
 
-			string suiteFileName = fileImportPref + "_IMPORT_JSON_MAIN.TXT";
+			string scriptFileName = fileImportPref + "RUN_IMPORT_MAIN.BAT";
 
-			string testSuiteImportFile = System.IO.Path.Combine(pathImportTxtFolder, suiteFileName);
+			string testScriptImportFile = System.IO.Path.Combine(folders.PathTestsNodeFolder, scriptFileName);
+
+            string suiteFileName = fileImportPref + "_IMPORT_JSON_MAIN.TXT";
+
+			string testSuiteImportFile = System.IO.Path.Combine(folders.PathImportTxtFolder, suiteFileName);
+
+
+
+            using (TextWriter writerBatFile = new StreamWriter(testScriptImportFile, false, Encoding.GetEncoding("windows-1250")))
+            {
+                string testRelBatchCommandLine = RunTestImportOKmzdyTarget("", "C:\\Program Files (x86)\\OKsystem\\OKmzdy pro Windows\\", "OKPRIJMY", testSuiteImportFile, "OKmzdy160.exe");
+                string testDevBatchCommandLine = RunTestImportOKmzdyTarget("", "C:\\PROJEKTY_OKM\\A1300-01-2005\\vers.app\\Release\\", "OKPRIJMY", testSuiteImportFile, "OKmzdy160.exe");
+
+                writerBatFile.WriteLine(testDevBatchCommandLine);
+
+                writerBatFile.Close();
+            }
 
 			long nRokMesFrom = UtilsTable.RokMes(sRokMesFrom);
 			long nRokMesUpto = UtilsTable.RokMes(sRokMesUpto);
@@ -58,6 +77,8 @@ namespace TestImportBatch
 
 						var importListMesRokMMzda = data.MMzda.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu && c.RokMesicZadani == vyuct.RokMesicZaznamu)).ToList();
 
+						var importListMesRokMNepr = data.MNepr.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu && c.RokMesicZadani == vyuct.RokMesicZaznamu)).ToList();
+
 						var importListMesRokORMes = data.MMzda
 							.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu && c.RokMesicZadani != vyuct.RokMesicZaznamu))
 							.Select((v) => (v.RokMesicZadani))
@@ -67,13 +88,13 @@ namespace TestImportBatch
 
 						string fileNamePPrac = fileImportPref + "_" + vyuct.RokMesicZaznamu + "_IMPORT_PRAC.TXT";
 
-						string filePathPPrac = System.IO.Path.Combine(pathImportTxtFolder, fileNamePPrac);
+						string filePathPPrac = System.IO.Path.Combine(folders.PathImportTxtFolder, fileNamePPrac);
 
 						string fileNameMMzda = fileImportPref + "_" + vyuct.RokMesicZaznamu + "_IMPORT_MZDA.TXT";
 
-						string filePathMMzda = System.IO.Path.Combine(pathImportTxtFolder, fileNameMMzda);
+						string filePathMMzda = System.IO.Path.Combine(folders.PathImportTxtFolder, fileNameMMzda);
 
-						if (importListMesRokPPrac.Count > 0 || importListMesRokDDeti.Count > 0)
+						if (importListMesRokPPrac.Count > 0 || importListMesRokUPPom.Count > 0 || importListMesRokDDeti.Count > 0)
 						{
 							using (TextWriter writer = new StreamWriter(filePathPPrac, false, Encoding.GetEncoding("windows-1250")))
 							{
@@ -102,13 +123,17 @@ namespace TestImportBatch
 							AddImportFDavka(writerSuite, vyuct.RokPocitany(), vyuct.MesPocitany(), filePathPPrac, vyuct.ArchivNazev + vyuct.RokMesicZaznamu, PRE_IMPORT_ARCHIVACE);
 						}
 
-						if (importListMesRokMMzda.Count > 0)
+						if (importListMesRokMMzda.Count > 0 || importListMesRokMNepr.Count > 0)
 						{
 							using (TextWriter writer = new StreamWriter(filePathMMzda, false, Encoding.GetEncoding("windows-1250")))
 							{
 								foreach (var mmzda in importListMesRokMMzda)
 								{
 									mmzda.CreateImportRecord19(writer);
+								}
+								foreach (var mnepr in importListMesRokMNepr)
+								{
+									mnepr.CreateImportRecord20(writer);
 								}
 								writer.Close();
 							}
@@ -119,7 +144,7 @@ namespace TestImportBatch
 						{
 							string fileNameOMzda = fileImportPref + "_" + vyuct.RokMesicZaznamu + ormes + "_IMPORT_OMIN.TXT";
 
-							string filePathOMzda = System.IO.Path.Combine(pathImportTxtFolder, fileNameOMzda);
+							string filePathOMzda = System.IO.Path.Combine(folders.PathImportTxtFolder, fileNameOMzda);
 
 							var importListMesRokOMzda = data.MMzda.Where((c) => (c.RokMesicZaznamu == vyuct.RokMesicZaznamu && c.RokMesicZadani == ormes)).ToList();
 
@@ -152,7 +177,18 @@ namespace TestImportBatch
 
 			return testSuiteImportFile;
 		}
-		private static void AddCreateFirmaDavka(TextWriter writer, long vRokImp, long vMesImp, string testName)
+        public static string RunTestImportOKmzdyTarget(string pathTestsKonfigFXML, string pathTestsExecFolder, string databaseRegsNode, string testSuiteImportFile, string appOKmzdyVer)
+        {
+            string commandLine = System.IO.Path.Combine(pathTestsExecFolder, appOKmzdyVer);
+            string commandRuns = databaseRegsNode + " -script \"" + testSuiteImportFile + "\"";
+            if (pathTestsKonfigFXML != "")
+            {
+                commandRuns += " -xml " + pathTestsKonfigFXML;
+            }
+            return "\"" + commandLine + "\" " + commandRuns;
+        }
+
+        private static void AddCreateFirmaDavka(TextWriter writer, long vRokImp, long vMesImp, string testName)
 		{
 			StringBuilder builder = ImportUtils.CreateLine(151);
 
@@ -254,69 +290,56 @@ namespace TestImportBatch
 			writer.WriteLine("@103||2640|4||28|1|1|1|0|1|0|0|1|0|NAHRADA_DOV|NAHRADA_DOV||||");
 		}
 
-		private static void CreateDirectory(string targetPath)
-		{
-			if (!System.IO.Directory.Exists(targetPath))
-			{
-				System.IO.Directory.CreateDirectory(targetPath);
-			}
-		}
+        private static void CreateDirectory(string targetPath)
+        {
+            if (!System.IO.Directory.Exists(targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+            }
+        }
 
-		private static void CopyFileToDirectory(string sourceFile, string targetPath)
-		{
-			if (!System.IO.Directory.Exists(targetPath))
-			{
-				System.IO.Directory.CreateDirectory(targetPath);
-			}
-			string fileName = System.IO.Path.GetFileName(sourceFile);
+        private static void CopyFileToDirectory(string sourceFile, string targetPath)
+        {
+            if (!System.IO.Directory.Exists(targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+            }
+            string fileName = System.IO.Path.GetFileName(sourceFile);
 
-			string destFile = System.IO.Path.Combine(targetPath, fileName);
+            string destFile = System.IO.Path.Combine(targetPath, fileName);
 
-			System.IO.File.Copy(sourceFile, destFile, true);
-		}
+            System.IO.File.Copy(sourceFile, destFile, true);
+        }
 
-		private static void CopyDirFilesToDirectory(string sourcePath, string targetPath)
-		{
-			if (!System.IO.Directory.Exists(targetPath))
-			{
-				System.IO.Directory.CreateDirectory(targetPath);
-			}
-			if (System.IO.Directory.Exists(sourcePath))
-			{
-				string[] files = System.IO.Directory.GetFiles(sourcePath);
+        private static void CopyDirFilesToDirectory(string sourcePath, string targetPath)
+        {
+            if (!System.IO.Directory.Exists(targetPath))
+            {
+                System.IO.Directory.CreateDirectory(targetPath);
+            }
+            if (System.IO.Directory.Exists(sourcePath))
+            {
+                string[] files = System.IO.Directory.GetFiles(sourcePath);
 
-				string fileName = "";
-				string destFile = "";
+                string fileName = "";
+                string destFile = "";
 
-				// Copy the files and overwrite destination files if they already exist.
-				foreach (string s in files)
-				{
-					// Use static Path methods to extract only the file name from the path.
-					fileName = System.IO.Path.GetFileName(s);
+                // Copy the files and overwrite destination files if they already exist.
+                foreach (string s in files)
+                {
+                    // Use static Path methods to extract only the file name from the path.
+                    fileName = System.IO.Path.GetFileName(s);
 
-					destFile = System.IO.Path.Combine(targetPath, fileName);
+                    destFile = System.IO.Path.Combine(targetPath, fileName);
 
-					System.IO.File.Copy(s, destFile, true);
-				}
-			}
-			else
-			{
-				Console.WriteLine("Source path does not exist!");
-			}
-		}
+                    System.IO.File.Copy(s, destFile, true);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Source path does not exist!");
+            }
+        }
 
-		private static void CreateTestDirTree(TestInitParams versionFolders)
-		{
-			CreateDirectory(versionFolders.PathTestsNodeFolder);
-
-			CreateDirectory(versionFolders.PathTestsExecFolder);
-			CreateDirectory(versionFolders.PathTestsDataFolder);
-			CreateDirectory(versionFolders.PathArchsDataFolder);
-			CreateDirectory(versionFolders.PathTiskyDataFolder);
-			CreateDirectory(versionFolders.PathEmptyDataFolder);
-			CreateDirectory(versionFolders.PathImportTxtFolder);
-			CreateDirectory(versionFolders.PathResultTxtFolder);
-		}
-
-	}
+    }
 }

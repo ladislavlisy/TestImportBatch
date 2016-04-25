@@ -1,2 +1,22 @@
 ﻿[
+  {
+    "RokMesicZaznamu": "1501",
+    "RokMesicZadani": "1501",
+    "OsobniCislo": "00003-MEV",
+    "PPomerCislo": "01-MPOM",
+    "SlozkaKod": "2103",
+    "DatumZacatek": "1.1.2015",
+    "DatumKonec": "31.12.2016",
+    "CastkaSazba": "15000"
+  },
+  {
+    "RokMesicZaznamu": "1501",
+    "RokMesicZadani": "1501",
+    "OsobniCislo": "00002-ROD",
+    "PPomerCislo": "01-RPOM",
+    "SlozkaKod": "2500",
+    "DatumZacatek": "1.1.2015",
+    "DatumKonec": "31.12.2016",
+    "CastkaSazba": "0"
+  }
 ]

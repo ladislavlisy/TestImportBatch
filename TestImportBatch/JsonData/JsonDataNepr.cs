@@ -6,23 +6,27 @@ namespace TestImportBatch
 {
 	public class JsonDataNepr
 	{
-		public string RokMesicZaznamu { get; set; }
-		public string OsobniCislo { get; set; }
+        public string RokMesicZaznamu { get; set; }
+        public string RokMesicZadani { get; set; }
+        public string OsobniCislo { get; set; }
 		public string PPomerCislo { get; set; }
 		public string SlozkaKod { get; set; }
 		public string DatumZacatek { get; set; }
 		public string DatumKonec { get; set; }
-		public JsonDataNepr()
+        public string CastkaSazba { get; set; }
+        public JsonDataNepr()
 		{
 			RokMesicZaznamu = "";
+			RokMesicZadani = "";
 			OsobniCislo = "";
 			PPomerCislo = "";
 			SlozkaKod = "";
 			DatumZacatek = "";
 			DatumKonec = "";
-		}
+            CastkaSazba = "";
+        }
 
-		public void ExportDataImp20(TextWriter writer)
+        public void CreateImportRecord20(TextWriter writer)
 		{
 			StringBuilder builder = ImportUtils.CreateLine(20);
 
@@ -42,8 +46,8 @@ namespace TestImportBatch
 			ImportUtils.AppendField(builder, nepr_datum_kon.Value.ToString("dd.MM.yyyy"));//IMP20_DATUMKON
 			ImportUtils.AppendEmpty(builder);//IMP20_PRVNIDEN
 			ImportUtils.AppendEmpty(builder);//IMP20_POSLEDEN
-			ImportUtils.AppendEmpty(builder);//IMP20_SAZBAKC
-			ImportUtils.AppendEmpty(builder);//IMP20_SAZBAPROC
+            ImportUtils.AppendField(builder, MzdaSazba100K());//IMP20_SAZBAKC
+            ImportUtils.AppendEmpty(builder);//IMP20_SAZBAPROC
 			ImportUtils.AppendEmpty(builder);//IMP20_ZAPVYD
 			//IMP20_DOKLAD
 			ImportUtils.AppendEmpty(builder);//IMP20_PLATIT
@@ -55,7 +59,7 @@ namespace TestImportBatch
 			writer.WriteLine(builder.ToString());
 		}
 
-		public void ExportDataImp44(TextWriter writer)
+		public void CreateImportRecord44(TextWriter writer)
 		{
 			StringBuilder builder = ImportUtils.CreateLine(44);
 
@@ -94,7 +98,11 @@ namespace TestImportBatch
 		{
 			return UtilsTable.MesNumber(RokMesicZaznamu);
 		}
-
-	}
+        private long MzdaSazba100K()
+        {
+            long nDataNumb = UtilsTable.Int32ParseNumber(CastkaSazba);
+            return (nDataNumb * 100);
+        }
+    }
 }
 

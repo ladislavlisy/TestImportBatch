@@ -1,19 +1,28 @@
 ﻿[
   {
-    "RokMesicZaznamu": "1506",
-    "RokMesicZadani": "1506",
+    "RokMesicZaznamu": "1501",
+    "RokMesicZadani": "1501",
     "OsobniCislo": "00001-POM",
-    "PPomerCislo": "01-PPOM",
-    "SlozkaKod": "1000",
-    "CastkaSazba": "50000",
+    "PPomerCislo": "01-DPC",
+    "SlozkaKod": "1809",
+    "CastkaSazba": "15000",
     "StalostTrvale": "1"
   },
   {
     "RokMesicZaznamu": "1501",
     "RokMesicZadani": "1501",
-    "OsobniCislo": "00001-POM",
-    "PPomerCislo": "01-DPC",
-    "SlozkaKod": "1811",
+    "OsobniCislo": "00003-MEV",
+    "PPomerCislo": "01-MPOM",
+    "SlozkaKod": "1000",
+    "CastkaSazba": "15000",
+    "StalostTrvale": "1"
+  },
+  {
+    "RokMesicZaznamu": "1501",
+    "RokMesicZadani": "1501",
+    "OsobniCislo": "00002-ROD",
+    "PPomerCislo": "01-RPOM",
+    "SlozkaKod": "1000",
     "CastkaSazba": "15000",
     "StalostTrvale": "1"
   },
@@ -22,7 +31,18 @@
     "RokMesicZadani": "1504",
     "OsobniCislo": "00001-POM",
     "PPomerCislo": "02-DPC",
-    "SlozkaKod": "1811",
+    "SlozkaKod": "1809",
     "CastkaSazba": "15000",
     "StalostTrvale": "1"
-  }]
+  },
+  {
+    "RokMesicZaznamu": "1506",
+    "RokMesicZadani": "1506",
+    "OsobniCislo": "00001-POM",
+    "PPomerCislo": "01-POM",
+    "SlozkaKod": "1000",
+    "CastkaSazba": "50000",
+    "StalostTrvale": "1"
+  }
+
+]
