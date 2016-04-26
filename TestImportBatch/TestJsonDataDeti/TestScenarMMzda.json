@@ -1,0 +1,29 @@
+﻿[
+  {
+    "RokMesicZaznamu": "1601",
+    "RokMesicZadani": "1601",
+    "OsobniCislo": "00001-POR",
+    "PPomerCislo": "01-POM",
+    "SlozkaKod": "1000",
+    "CastkaSazba": "15000",
+    "StalostTrvale": "1"
+  },
+  {
+    "RokMesicZaznamu": "1601",
+    "RokMesicZadani": "1601",
+    "OsobniCislo": "00002-POR",
+    "PPomerCislo": "01-POM",
+    "SlozkaKod": "1000",
+    "CastkaSazba": "15000",
+    "StalostTrvale": "1"
+  },
+  {
+    "RokMesicZaznamu": "1601",
+    "RokMesicZadani": "1601",
+    "OsobniCislo": "00003-POR",
+    "PPomerCislo": "01-POM",
+    "SlozkaKod": "1000",
+    "CastkaSazba": "15000",
+    "StalostTrvale": "1"
+  }
+]
